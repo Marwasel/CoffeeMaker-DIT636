@@ -237,7 +237,7 @@ public class Main {
         
         if (change == amtPaid) {
         	System.out.println("Insufficient funds to purchase.");
-        } else {
+        } else { //Done
         	System.out.println("Thank you for purchasing " + coffeeMaker.getRecipes()[recipeToPurchase].getName());
         }
         System.out.println("Your change is: " + change + "\n");
