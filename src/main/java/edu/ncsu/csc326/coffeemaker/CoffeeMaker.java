@@ -85,18 +85,36 @@ public class CoffeeMaker {
      */
     public synchronized int makeCoffee(int recipeToPurchase, int amtPaid) {
         int change = 0;
-        
+
+		//If recipe asked to purchase does not exist, meaning if the recipe does not exist
+		//1. TEST FOR THE SCENARIO OF A NON-EXISTING RECIPE
         if (getRecipes()[recipeToPurchase] == null) {
         	change = amtPaid;
+
+		//If the recipe exist and the amount paid is enough for a successful purchase
+		//2. TEST FOR A SCENARIO WHEN THE AMOUNT PAID IS ENOUGH FOR A SUCCESSFUL MAKING OF THE COFFEE
         } else if (getRecipes()[recipeToPurchase].getPrice() <= amtPaid) {
+
+			//Then check if the amount of ingredients are enough to make the coffee
+			//If the ingredients are enough, do a successful purchase
+			//2a.TEST FOR A SCENARIO WHEN THE INGREDIENTS ARE ENOUGH AND THE AMOUNT PAID IS ENOUGH
         	if (inventory.useIngredients(getRecipes()[recipeToPurchase])) {
         		change = amtPaid - getRecipes()[recipeToPurchase].getPrice();
+
+			//If ingredients are not enough, return the money paid since the making the coffee was unsuccessful
+			//2b. TEST FOR A SCENARIO WHEN THE INGREDIENTS ARE NOT ENOUGH BUT THE MONEY PAID IS ENOUGH
         	} else {
         		change = amtPaid;
         	}
+
+		//Else if the amount paid is less than the price of the requested coffee
+		//Return the money since the making of the coffee was unsuccessful
+		//3. TEST FOR A SCENARIO WHEN THE AMOUNT PAID IS LESS COMPARE TO THE PRICE OF THE COFFEE SPECIFIED
         } else {
         	change = amtPaid;
         }
+
+		//4.TEST A SCENARIO WHEN THE INGREDIENTS ARE NOT ENOUGH AND THE MONEY PAID IS NOT ENOUGH AS WELL
         
         return change;
     }

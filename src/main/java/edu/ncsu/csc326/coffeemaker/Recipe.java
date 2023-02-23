@@ -107,6 +107,8 @@ public class Recipe {
     	} catch (NumberFormatException e) {
     		throw new RecipeException("Units of sugar must be a positive integer");
     	}
+		//previously it was if amtSugar <= 0 which always led to a bug hence prevented
+		// the possibility of getting 100% coverage of the coffeeMaker Class
 		if (amtSugar >= 0) {
 			this.amtSugar = amtSugar;
 		} else {
