@@ -12,6 +12,12 @@ public class RecipeBookTest {
 
     private RecipeBook recipeBook;
     private Recipe recipe;
+
+    private Recipe r1;
+
+    private Recipe r2;
+
+    private Recipe r3;
     @Before
     public void setUp() throws Exception {
 
@@ -24,7 +30,38 @@ public class RecipeBookTest {
         recipe.setAmtMilk("2");
         recipe.setAmtSugar("1");
         recipe.setPrice("30");
+        r1 = new Recipe();
+        r1.setName("Coffee");
+        r1.setAmtChocolate("0");
+        r1.setAmtCoffee("3");
+        r1.setAmtMilk("1");
+        r1.setAmtSugar("1");
+        r1.setPrice("50");
 
+        r2 = new Recipe();
+        r2.setName("Hot chocolate");
+        r2.setAmtChocolate("1");
+        r2.setAmtCoffee("5");
+
+        r3 = new Recipe();
+        r3.setName("Coffee");
+        r3.setAmtChocolate("1");
+        r3.setAmtCoffee("5");
+        r3.setAmtMilk("2");
+
+
+
+        @Test
+        public void testGetRecipes() {
+            Recipe[] recipes = RecipeBook.getRecipes();
+            assertNotNull(recipes);
+            assertEquals(4, recipes.length);
+
+
+            for (int i = 0; i < recipes.length; i++) {
+                assertNull(recipes[i]);
+            }
+        }
     // Add recipe to the recipe book
         recipeBook.addRecipe(recipe);
 }
@@ -47,4 +84,18 @@ public class RecipeBookTest {
         // The recipe book should remain the same
         assertTrue(recipeBook.getRecipes()[0].equals(recipe));
     }
+
+    @Test
+    public void addTest() throws Exception {
+        assertTrue(RecipeBook.addRecipe(r2));
+        assertTrue(RecipeBook.addRecipe(r1));
+
+        try {
+            RecipeBook.addRecipe(r3);
+            fail("Expected an exception to be thrown");
+        } catch (Exception e) {
+            assertEquals("The array is already full!", e.getMessage());
+        }
+    }
+
 }
