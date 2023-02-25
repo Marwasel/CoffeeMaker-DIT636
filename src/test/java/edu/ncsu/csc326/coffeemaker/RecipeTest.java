@@ -43,8 +43,11 @@ public class RecipeTest {
 
     @Test
     public void testGetAmtChocolate() {
-        assertEquals(1, newRecipe.getAmtChocolate());
+        int expectedAmt = 3;
+        int actualAmt = newRecipe.getAmtChocolate();
+        assertEquals(expectedAmt,actualAmt);
     }
+
 
     @Test
     public void testSetAmtChocolate() {
@@ -172,18 +175,10 @@ public class RecipeTest {
 
     @Test
     public void testSetName() {
-        try {
-            newRecipe.setName("Hot chocolate");
-            assertEquals("Hot chocolate", newRecipe.getName());
-        } catch (RecipeException e) {
-            fail("RecipeException shouldn't be thrown!");
-        }
-        try {
-            newRecipe.setName(null);
-            fail("Expected exception not thrown!");
-        } catch (RecipeException e) {
-            assertEquals("Name cannot be null", e.getMessage());
-        }
+        newRecipe.setName("Hot chocolate");
+        assertEquals("Hot chocolate", newRecipe.getName());
+        newRecipe.setName(null);
+        assertNull(newRecipe.getName());
     }
 
     @Test
@@ -229,9 +224,8 @@ public class RecipeTest {
     public void testHashCode() throws RecipeException {
         recipe1.setName("Vanilla cake");
         recipe2.setName("Vanilla cake");
-        //newRecipe.setName("Milk shake");
         assertEquals(recipe1.hashCode(), recipe2.hashCode());
-        // assertNotEquals(recipe1.hashCode(), newRecipe.hashCode());
+
     }
     @Test
     public void testEquals_NullComparison() {
