@@ -114,12 +114,13 @@ public class InventoryTest {
         assertEquals(10, inventory.getSugar());
     }
 
-    @Test(expected = InventoryException.class)   // failed test , change method to > 0 to pass it
+    // failed test , change line 182 method to(amtSugar > 0) to pass it
+    @Test(expected = InventoryException.class)
     public void testAddSugarException() throws InventoryException {
         inventory.addSugar("-5");
     }
 
-    @Test                                       // failed test , change method to > 0 to pass it
+    @Test  // failed test , change line 182 method to(amtSugar > 0) to pass it
     public void testAddSugar_Normal() throws InventoryException {
         inventory.addSugar("5");
         assertEquals(20, inventory.getSugar());
