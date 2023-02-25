@@ -2,11 +2,10 @@ package edu.ncsu.csc326.coffeemaker;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import edu.ncsu.csc326.coffeemaker.exceptions.RecipeException;
 import edu.ncsu.csc326.coffeemaker.exceptions.InventoryException;
+
+import static org.junit.Assert.*;
 
 public class RecipeBookTest {
 
@@ -49,11 +48,11 @@ public class RecipeBookTest {
         r3.setAmtCoffee("5");
         r3.setAmtMilk("2");
 
-
+    }
 
         @Test
         public void testGetRecipes() {
-            Recipe[] recipes = RecipeBook.getRecipes();
+            Recipe[] recipes = recipeBook.getRecipes();
             assertNotNull(recipes);
             assertEquals(4, recipes.length);
 
@@ -63,10 +62,11 @@ public class RecipeBookTest {
             }
         }
     // Add recipe to the recipe book
-        recipeBook.addRecipe(recipe);
-}
+
+
     @Test
     public void testDeleteRecipe_Normal() {
+        recipeBook.addRecipe(recipe);
         String recipeName = recipeBook.deleteRecipe(0);
         // The name of the deleted recipe should be "ChocoLatte"
         assertEquals("ChocoLatte", recipeName);
@@ -86,12 +86,12 @@ public class RecipeBookTest {
     }
 
     @Test
-    public void addTest() throws Exception {
-        assertTrue(RecipeBook.addRecipe(r2));
-        assertTrue(RecipeBook.addRecipe(r1));
+    public void addRecipeTest() throws Exception {
+        assertTrue(recipeBook.addRecipe(r2));
+        assertTrue(recipeBook.addRecipe(r1));
 
         try {
-            RecipeBook.addRecipe(r3);
+            recipeBook.addRecipe(r3);
             fail("Expected an exception to be thrown");
         } catch (Exception e) {
             assertEquals("The array is already full!", e.getMessage());
