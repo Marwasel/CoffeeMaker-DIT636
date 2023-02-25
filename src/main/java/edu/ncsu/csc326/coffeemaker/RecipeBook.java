@@ -57,7 +57,8 @@ public class RecipeBook {
 	public synchronized String deleteRecipe(int recipeToDelete) {
 		if (recipeArray[recipeToDelete] != null) {
 			String recipeName = recipeArray[recipeToDelete].getName();
-			recipeArray[recipeToDelete] = new Recipe();  // the recipe is to be deleted so  it should become null instead( change to recipeArray[recipeToDelete] = null;)
+			// the recipe is to be deleted, so  it should become null instead( change to recipeArray[recipeToDelete] = null;)
+			recipeArray[recipeToDelete] = new Recipe();
 			return recipeName;
 		} else {
 			return null;

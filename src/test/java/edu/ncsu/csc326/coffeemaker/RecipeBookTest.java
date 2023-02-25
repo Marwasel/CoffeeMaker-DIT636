@@ -61,11 +61,11 @@ public class RecipeBookTest {
                 assertNull(recipes[i]);
             }
         }
-    // Add recipe to the recipe book
 
 
     @Test
     public void testDeleteRecipe_Normal() {
+        // Add recipe to the recipe book
         recipeBook.addRecipe(recipe);
         String recipeName = recipeBook.deleteRecipe(0);
         // The name of the deleted recipe should be "ChocoLatte"
@@ -77,8 +77,9 @@ public class RecipeBookTest {
 
     @Test
     public void testDeleteRecipeException() {
+        recipeBook.addRecipe(recipe);
         // delete a recipe at an index that doesn't exist in recipe book
-        String deletedRecipe = recipeBook.deleteRecipe(0);
+        String deletedRecipe = recipeBook.deleteRecipe(1);
         // name of the deleted recipe is null
         assertNull(deletedRecipe);
         // The recipe book should remain the same
