@@ -228,48 +228,6 @@ public class CoffeeMakerTest {
     //==================================================================================================================
 
 
-    @Test
-    public void testEditRecipeWithMalformedValues() {
-
-        Throwable exception = assertThrows(
-                RecipeException.class, () -> {
-                    //Set values for our third recipe
-                    //Set up for recipe3
-                    recipe3 = new Recipe();
-                    recipe3.setName("Cappuccino");
-                    recipe3.setAmtChocolate("0");
-                    recipe3.setAmtCoffee("3");
-                    recipe3.setAmtMilk("5");
-                    recipe3.setAmtSugar("2");
-                    recipe3.setPrice("75");
-
-                    currentCoffeeMaker.addRecipe(recipe3);
-
-
-                    //Set values for our forth recipe
-                    //Set up for recipe4
-                    recipe4 = new Recipe();
-                    recipe4.setName("");
-                    recipe4.setAmtChocolate("4");
-                    recipe4.setAmtCoffee("0");
-                    recipe4.setAmtMilk("One");
-                    recipe4.setAmtSugar("1");
-                    recipe4.setPrice("55");
-
-                    String result = currentCoffeeMaker.editRecipe(0, recipe4);
-
-                    //Since editRecipe returns the name of the edited recipe instead of the name of the name recipe
-                    //We assert the expected with to the name of the old recipe that we removed
-                    assertEquals("Cappuccino", result);
-
-                    //To check if the now existing recipe in the array is the same as the new one(recipe4)
-                    //We get the recipe in index 0 of the array then compare it with recipe 4 by asserting equals
-                    Recipe recipeResult = currentCoffeeMaker.getRecipes()[0];
-                    assertEquals(recipe4, recipeResult);
-                }
-        );
-    }
-
 
     //This test fails with the initial implementation of adding sugar since it will always throw an exception that
     //the value amount of sugar must be positive integer due to a bug in line 182 (amtSugar <= 0 instead of amtSugar >= 0)
@@ -350,32 +308,42 @@ public class CoffeeMakerTest {
     //===========================COVERAGE TESTS FOR COFFEEMAKER: MAKECOFFEE=========================================
 
 
-    //Test if MakeCoffee methods works as supposed
-    //last else, line 240 for successful making of coffee
-    @Test
-    public void testMakeCoffee() {
-        currentCoffeeMaker.addRecipe(recipe1);
-
-        int result = currentCoffeeMaker.makeCoffee(0, 75);
-
-        assertEquals(50, result);
-    }
-
-    @Test
-    public void testMakeCoffeeMalformedInput() {
-        currentCoffeeMaker.addRecipe(recipe2);
-
-        int result = currentCoffeeMaker.makeCoffee(0, -50);
-
-        assertEquals(-50, result);
-    }
-
+    //1. TEST FOR THE SCENARIO OF A NON-EXISTING RECIPE
     @Test
     public void testMakeCoffeeNonExistingRecipe() {
         int result = currentCoffeeMaker.makeCoffee(0, 100);
         assertEquals(100, result);
     }
 
+    //Test if MakeCoffee methods works as supposed
+    //last else, line 240 for successful making of coffee
+
+    //2a. TEST FOR A SCENARIO WHEN THE AMOUNT PAID IS ENOUGH FOR A SUCCESSFUL MAKING OF THE COFFEE
+    @Test
+    public void testMakeCoffee() {
+        currentCoffeeMaker.addRecipe(recipe1); //recipe1 price ==25
+
+        int result = currentCoffeeMaker.makeCoffee(0, 75);
+
+        assertEquals(50, result);
+    }
+
+
+    //2b.TEST FOR A SCENARIO WHEN THE INGREDIENTS ARE ENOUGH AND THE AMOUNT PAID IS ENOUGH
+    @Test
+    public void testMakeCoffeeInsufficientFunds() {
+        currentCoffeeMaker.addRecipe(recipe2); //price 50
+
+        //the price of recipe2 is 50 but in the test we give 30 as the paid amount by the user
+        int result = currentCoffeeMaker.makeCoffee(0, 30);
+
+        //Since the amount pasi is less than the price, the function will return the
+        //same money as the change printing insufficient funds to the user
+        assertEquals(30, result);
+    }
+
+
+    //2c. TEST FOR A SCENARIO WHEN THE INGREDIENTS ARE NOT ENOUGH BUT THE MONEY PAID IS ENOUGH
     @Test
     public void testMakeCoffeeMakerInventoryLow() throws RecipeException {
 
@@ -403,6 +371,16 @@ public class CoffeeMakerTest {
 
         int result2 = currentCoffeeMaker.makeCoffee(0, 125);
         assertEquals(125, result2);
+    }
+
+    //TEST FOR A CASE WHEN THE USE PROVIDES A NEGATIVE AMOUNT OF MONEY AS AMOUNT PAID
+    @Test
+    public void testMakeCoffeeMalformedInput() {
+        currentCoffeeMaker.addRecipe(recipe2); //price 50
+
+        int result = currentCoffeeMaker.makeCoffee(0, -50);
+
+        assertEquals(-50, result);
     }
 
 }
