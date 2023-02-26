@@ -50,19 +50,25 @@ public class RecipeTest {
 
 
     @Test
-    public void testSetAmtChocolate() {
+    public void testSetAmtChocolate_Normal() {
         try {
             newRecipe.setAmtChocolate("1");
             assertEquals(1, newRecipe.getAmtChocolate());
         } catch (RecipeException e) {
             fail("RecipeException shouldn't be thrown!");
         }
-        try {
-            newRecipe.setAmtChocolate("-2");
-            fail("Expected exception not thrown!");
-        } catch (RecipeException e) {
-            assertEquals("Units of chocolate must be a positive integer", e.getMessage());
+    }
+        @Test
+        public void testSetAmtChocolate_Negative() {
+            try {
+                newRecipe.setAmtChocolate("-2");
+                fail("Expected exception not thrown!");
+            } catch (RecipeException e) {
+                assertEquals("Units of chocolate must be a positive integer", e.getMessage());
+            }
         }
+        @Test
+    public void testSetAmtChocolate_Integer() {
         try {
             newRecipe.setAmtChocolate("ABC");
             fail("Expected exception not thrown!");
@@ -79,19 +85,25 @@ public class RecipeTest {
     }
 
     @Test
-    public void testSetAmtCoffee() {
+    public void testSetAmtCoffee_Normal() {
         try {
             newRecipe.setAmtCoffee("3");
             assertEquals(3, newRecipe.getAmtCoffee());
         } catch (RecipeException e) {
             fail("RecipeException shouldn't be thrown!");
         }
+    }
+    @Test
+    public void testSetAmtCoffee_Negative() {
         try {
             newRecipe.setAmtCoffee("-2");
             fail("Expected exception not thrown!");
         } catch (RecipeException e) {
             assertEquals("Units of coffee must be a positive integer", e.getMessage());
         }
+    }
+    @Test
+    public void testSetAmt_Integer() {
         try {
             newRecipe.setAmtCoffee("ABC");
             fail("Expected exception not thrown!");
@@ -110,19 +122,25 @@ public class RecipeTest {
         assertEquals(expectedAmt,actualAmt);
     }
     @Test
-    public void testSetAmtMilk() {
+    public void testSetAmtMilk_Normal() {
         try {
             newRecipe.setAmtMilk("3");
             assertEquals(3, newRecipe.getAmtMilk());
         } catch (RecipeException e) {
             fail("RecipeException shouldn't be thrown!");
         }
+    }
+    @Test
+    public void testSetAmtMilk_Negative() {
         try {
             newRecipe.setAmtMilk("-2");
             fail("Expected exception not thrown!");
         } catch (RecipeException e) {
             assertEquals("Units of milk must be a positive integer", e.getMessage());
         }
+    }
+    @Test
+    public void testSetAmtMilk_Integer() {
         try {
             newRecipe.setAmtMilk("ABC");
             fail("Expected exception not thrown!");
@@ -142,19 +160,25 @@ public class RecipeTest {
     }
 
     @Test
-    public void testSetAmtSugar() {
+    public void testSetAmtSugar_Normal() {
         try {
             newRecipe.setAmtSugar("3");
             assertEquals(3, newRecipe.getAmtSugar());
         } catch (RecipeException e) {
             fail("RecipeException shouldn't be thrown!");
         }
+    }
+    @Test
+    public void testSetAmtSugar_Negative() {
         try {
             newRecipe.setAmtSugar("-2");
             fail("Expected exception not thrown!");
         } catch (RecipeException e) {
             assertEquals("Units of sugar must be a positive integer", e.getMessage());
         }
+    }
+    @Test
+    public void testSetAmtSugar_Integer() {
         try {
             newRecipe.setAmtSugar("ABC");
             fail("Expected exception not thrown!");
@@ -192,19 +216,25 @@ public class RecipeTest {
     }
 
     @Test
-    public void testSetPrice() {
+    public void testSetPrice_Normal() {
         try {
             newRecipe.setPrice("40");
             assertEquals(40, newRecipe.getPrice());
         } catch (RecipeException e) {
             fail("RecipeException shouldn't be thrown!");
         }
+    }
+    @Test
+    public void testSetPrice_Negative() {
         try {
             newRecipe.setPrice("-40");
             fail("Expected exception not thrown!");
         } catch (RecipeException e) {
             assertEquals("Price must be a positive integer", e.getMessage());
         }
+    }
+    @Test
+    public void testSetPrice_Integer() {
         try {
             newRecipe.setPrice("ABC");
             fail("Expected exception not thrown!");
@@ -276,6 +306,8 @@ public class RecipeTest {
         boolean check = r1.equals(r2);
 
         assertFalse(check);
+
+
     }
 }
 
